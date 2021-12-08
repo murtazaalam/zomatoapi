@@ -63,6 +63,42 @@ app.get('/restaurant', (req, res)=>{
     })
 })
 
+app.get('/filter/:mealId', (req, res) => {
+    var id = parseInt(req.params.mealId);
+    var query = {'mealTypes.mealtype_id':id};
+    var sort = {cost:1};
+    // var skip = 0;
+    // var limit = 1000000000;
+    if(req.query.sortKey){
+        var sortKey = req.query.sortKey;
+        if(sortKey>1 || sortKey<-1 || sortKey == 0){
+            sortKey = 1;
+        }
+        sort = {cost: Number(sortKey)}
+    }
+    if(req.query.lcost && req.query.hcost){
+        var lcost = Number(req.query.lcost);
+        var hcost = Number(req.query.hcost);
+    }
+    if(req.query.cuisine && req.query.lcost && req.query.hcost){
+        query = {$and:[{cost:{$gt:lcost, $lt:hcost}}],
+                    'cuisines.cuisine_id':Number(req.query.cuisine),
+                    'mealTypes.mealtype_id':id}
+    }
+    else if(req.query.cuisine){
+        query = {'mealTypes.mealtype_id':id, 'cuisines.cuisine_id':Number(req.query.cuisine)}
+        //query = {'mealTypes.mealtype_id':id, 'cuisines.cuisine_id': {$in:[2,5]}} it will give cuisine id between 2 and 5
+    }
+    else if(req.query.lcost && req.query.hcost){
+        
+        query = {$and:[{cost:{$gt:lcost, $lt:hcost}}], 'mealTypes.mealtype_id':id}
+    }
+    db.collection('restaurant').find(query).sort(sort).toArray((err, result) => {
+        if(err) throw err;
+        res.send(result);
+    })
+})
+
 //list of menu item
 app.get('/menu', (req, res) => {
     db.collection('menu').find().toArray((err, result)=>{
@@ -72,6 +108,7 @@ app.get('/menu', (req, res) => {
 })
 
 app.get('/menu/:restid', (req, res)=>{
+    var restid = Number(req.params.restid);
     db.collection('menu').find({restaurant_id:restid}).toArray((err, result)=>{
         if(err) throw err;
         res.send(result);
