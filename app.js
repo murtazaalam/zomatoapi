@@ -1,4 +1,5 @@
 var express = require('express');
+var cors = require('cors');
 var app = express();
 var dotenv = require('dotenv');
 dotenv.config();
@@ -8,6 +9,8 @@ var MongoClient = mongo.MongoClient;
 var mongoUrl = process.env.MongoLiveUrl;
 var port = process.env.PORT || 9592;
 var db;
+
+app.use(cors());
 
 //default routing
 app.get('/', (req, res) => {

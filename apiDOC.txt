@@ -19,6 +19,8 @@ sort filter(https://xhomato.herokuapp.com/filter/4?lcost=100&hcost=800&sortKey=-
 Cuisine + Cost(https://xhomato.herokuapp.com/filter/4?lcost=100&hcost=800&cuisine=2&sortKey=-3) >>>> Done
 (Search on basis of mealtype and cuisine + cost with sort)
 
+//done
+
 Page3(Details Page)
 
 Get the details of restaurant on basis of Id (https://xomato.herokuapp.com/restaurant/12) >>>>>>>>>>>>>>>>>>Done
