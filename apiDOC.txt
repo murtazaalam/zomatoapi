@@ -1,7 +1,7 @@
-Page1(Home Page)
+	Page1(Home Page)
 
 List Of City (https://xhomato.herokuapp.com/location) (this will return all the city) >>>>>>>>>>>>>>>>>>Done 
-All Restaurant and wrt to city (on the basis city return restaurants (https://xhomato.herokuapp.com/restaurant?state) >>>>>>>>>>Done 
+All Restaurant and wrt to city (on the basis city return restaurants (https://xhomato.herokuapp.com/restaurant?state=1) >>>>>Done 
 List of all meal (https://xomato.herokuapp.com/mealType) (return all the meal types) >>>>>>>>>>>>>>>>>>Done
 
 Page2(Listing Page)
