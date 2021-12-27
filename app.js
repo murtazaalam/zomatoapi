@@ -118,6 +118,28 @@ app.get('/menu/:restid', (req, res)=>{
     })
 })
 
+app.post('/menuItem', (req, res) => {
+    console.log(req.body);
+    db.collection('menu').find({menu_id:{$in:req.body}}).toArray((err, result)=>{
+        if(err) throw err;
+        res.send(result);
+    })
+})
+
+app.put('updateStatus/:id', (req, res)=>{
+    var id = Number(req.params.id);
+    var status = req.body.status ? req.body.status : "Pending";
+    db.collection('orders').updateOne({id:id}, {
+        $set:{
+            "date":req.body.date,
+            "bank_status":req.body.bank_status,
+            "bank":req.body.bank,
+            "status":status
+        }
+    })
+    res.send('Data Updated');
+})
+
 //list of all order placed
 app.get('/orders', (req, res) => {
     db.collection('order').find().toArray((err, result)=>{
