@@ -3,6 +3,7 @@ var cors = require('cors');
 var app = express();
 var dotenv = require('dotenv');
 dotenv.config();
+var bodyParser = require('body-parser');
 var mongo = require('mongodb');
 var MongoClient = mongo.MongoClient;
 
@@ -10,6 +11,8 @@ var mongoUrl = process.env.MongoLiveUrl;
 var port = process.env.PORT || 9592;
 var db;
 
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
 app.use(cors());
 
 //default routing
@@ -124,6 +127,15 @@ app.post('/menuItem', (req, res) => {
         if(err) throw err;
         res.send(result);
     })
+})
+
+app.post('/menuItem',(req,res) => {
+    console.log(req.body);
+    db.collection('menu').find({menu_id:{$in:req.body}}).toArray((err,result) => {
+        if(err) throw err;
+        res.send(result)
+    })
+    
 })
 
 app.put('updateStatus/:id', (req, res)=>{
