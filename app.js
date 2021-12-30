@@ -160,6 +160,14 @@ app.get('/orders', (req, res) => {
     })
 })
 
+//place order api
+app.post('/placeOrder', (req, res)=>{
+    db.collection('order').insert(req.body, (err, result) => {
+        if(err) throw err;
+        res.send("Order Placed");
+    })
+})
+
 //connecting to mongodb
 MongoClient.connect(mongoUrl, (err, client) => {
     if(err) console.log('error while connecting to mongodb');
