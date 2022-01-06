@@ -138,10 +138,10 @@ app.post('/menuItem',(req,res) => {
     
 })
 
-app.put('updateStatus/:id', (req, res)=>{
+app.put('/updateStatus/:id', (req, res)=>{
     var id = Number(req.params.id);
     var status = req.body.status ? req.body.status : "Pending";
-    db.collection('orders').updateOne({id:id}, {
+    db.collection('order').updateOne({id:id}, {
         $set:{
             "date":req.body.date,
             "bank_status":req.body.bank_status,
