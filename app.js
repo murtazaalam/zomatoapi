@@ -168,6 +168,32 @@ app.post('/placeOrder', (req, res)=>{
     })
 })
 
+//for pagination
+app.get('/pagination/:mealId', (req, res) => {
+    var id = parseInt(req.params.mealId);
+    var limitValue = parseInt(req.query.limit_value);
+    var skipValue = parseInt(req.query.skip_value);
+    if(limitValue && skipValue){
+        db.collection('restaurant').find({'mealTypes.mealtype_id':id}).skip(skipValue).limit(limitValue).toArray((err, result)=>{
+            if(err) throw err;
+            res.send(result);
+        })
+    }
+    else if(limitValue){
+        db.collection('restaurant').find({'mealTypes.mealtype_id':id}).limit(limitValue).toArray((err, result)=>{
+            if(err) throw err;
+            res.send(result);
+        })
+    }
+    else{
+        db.collection('restaurant').find({'mealTypes.mealtype_id':id}).toArray((err, result)=>{
+            if(err) throw err;
+            res.send(result);
+        })
+    }
+    
+})
+
 //connecting to mongodb
 MongoClient.connect(mongoUrl, (err, client) => {
     if(err) console.log('error while connecting to mongodb');

@@ -40,3 +40,6 @@ Post the order (Insert order details in db) (https://xhomato.herokuapp.com/place
 Page5(Order Page)
 
 List all the order placed >>>>>>>>>>>>>>>>>>Done (https://xhomato.herokuapp.com/orders)
+
+Not following MVC pattern because here we are using mongodb not mongoose(it is like a wrapper when we are talking to mongodb we need to 
+talk with mongoose first, it slows down the app a little bit, benifit is we get structure of data or schema)
