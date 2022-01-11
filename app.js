@@ -154,10 +154,20 @@ app.put('/updateStatus/:id', (req, res)=>{
 
 //list of all order placed
 app.get('/orders', (req, res) => {
-    db.collection('order').find().toArray((err, result)=>{
-        if(err) throw err;
-        res.send(result);
-    })
+    var email = req.query.email;
+    if(email){
+        db.collection('order').find({email:email}).toArray((err, result)=>{
+            if(err) throw err;
+            res.send(result);
+        })
+    }
+    else{
+        db.collection('order').find().toArray((err, result)=>{
+            if(err) throw err;
+            res.send(result);
+        })
+    }
+    
 })
 
 //place order api
